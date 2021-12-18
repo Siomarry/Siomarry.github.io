@@ -157,13 +157,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li><p>如何子进程出现僵尸进程</p>
-<p>子进程退出时，父进程未使用wait或waitpid函数对其资源进行回收，就会造成僵尸进程的现象，僵尸进程会占用系统资源，过多的僵尸进程会导致系统崩溃.</p>
-<p>如何防止僵尸进程？</p>
-<p>在父进程中使用wait函数时，会回收资源，但父进程本身会阻塞，且由于unix信号一般是不排队的，所以当子进程集中推出时，容易造成回收失败的问题.</p>
-</li>
-</ol>
+        <h3 id="1-如何子进程出现僵尸进程"><a href="#1-如何子进程出现僵尸进程" class="headerlink" title="1. 如何子进程出现僵尸进程"></a>1. 如何子进程出现僵尸进程</h3><p>   子进程退出时，父进程未使用wait或waitpid函数对其资源进行回收，就会造成僵尸进程的现象，僵尸进程会占用系统资源，过多的僵尸进程会导致系统崩溃.</p>
+<p>   如何防止僵尸进程？</p>
+<p>   在父进程中使用wait函数时，会回收资源，但父进程本身会阻塞，且由于unix信号一般是不排队的，所以当子进程集中推出时，容易造成回收失败的问题.</p>
 <p>​        正确方式：使用SIGCHILD信号处理 + waitpid函数对僵尸进程进行回收.</p>
 <p>​        </p>
 <p>​        关于waitpid函数：waitpid(pid_t pid，int* status，int options);</p>
@@ -178,11 +174,7 @@
 
 <pre><code>      显然，当捕捉到一个子进程时，继续尝试捕捉则使用循环. 若没有捕捉的，直接退出.避免阻塞.完美！
 </code></pre>
-<ol start="2">
-<li><p>如何防止僵尸线程</p>
-<p>父进程使用pthread_join或者pthread_detach.</p>
-</li>
-</ol>
+<h3 id="2-如何防止僵尸线程"><a href="#2-如何防止僵尸线程" class="headerlink" title="2. 如何防止僵尸线程"></a>2. 如何防止僵尸线程</h3><p>   父进程使用pthread_join或者pthread_detach.</p>
 
       
 
